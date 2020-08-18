@@ -135,6 +135,12 @@ class AS3K8:
 import convertWire as convert
 from scipy import interpolate
 class Cable:
+    """ An electrical cable object with ability to set size and perform standard calculations.
+    Calculations inclued: 
+    - Determining the current capacity.
+    - Calculating and plotting the short circuit curve Current vs Time.
+    - Setting and Getting cable paramaters
+    """
     def __init__(self, application):
         self.loadAS3K8()
         self.setApplication(application)
