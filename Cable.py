@@ -6,7 +6,14 @@
 # Dan - What is this?
 
 class AS3K8:
-    """ A simple Class to make using values from the AS3K8 easy """
+    """ A simple Class to make using values from the AS3K8 easy. 
+    Current tables istalled are:
+    Table 10 - XLPE cables
+    Table 16 - Flexable Leads
+    Table 17 - High temperature and Teflon cables 
+    Table 27 - Thermal derating factors
+    Table 52 - Constant 'K' lookup for calculating the adiabedic short circuit current
+    Table 53 - Temperature limits for wire insulation when calculating constant 'K'"""
     def __init__(self):
         self.loadTable10()
         self.loadTable16()
