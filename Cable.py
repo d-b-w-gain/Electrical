@@ -206,10 +206,11 @@ class Cable:
         i=0
         self.x=[]
         self.y=[]
-        for value in self.as3K8.getTable(10):
-            if isinstance(value,str)!=1:
+        # step through Table
+        for value in self.as3K8.getTable(self.table):
+            if isinstance(value,str)!=1: # find keys that are not strings, and save keys to x and values to y
                 self.x.append(value)
-                self.y.append(self.as3K8.getTable(10)[value])
+                self.y.append(self.as3K8.getTable(self.table)[value])
         f = interpolate.interp1d(self.x, self.y)
         ampacity = f(self.getCSA())
         return ampacity #self.as3K8.getTable(self.table)[self.getCSA()]
