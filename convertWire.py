@@ -2,7 +2,7 @@
 # coding: utf-8
 
 # # Convert from AWG to CSA mm^2 using the ASTM B258-02 #
-# This utility is provided for ROM convenience only.  Engineering calculation must be preformed directly from standards.
+# This utility is provided for ROM convenience only.  Engineering calculation must be performed directly from standards.
 
 # In[3]:
 
