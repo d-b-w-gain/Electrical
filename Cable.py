@@ -3,8 +3,10 @@
 
 # In[18]:
 
+# Dan - What is this?
 
-class AS3008:
+class AS3K8:
+    """ A simple Class to make using values from the AS3K8 easy """
     def __init__(self):
         self.loadTable10()
         self.loadTable16()
@@ -13,7 +15,7 @@ class AS3008:
         self.loadTable52()
         self.loadTable53()
     def loadTable53(self):
-        file_path = 'AS3008-Table53.csv'#xlsx'
+        file_path = 'AS3K8-Table53.csv'#xlsx'
         self.table53 = {}
         with open(file_path) as f:
             headers = [header.strip() for header in next(f).split(",")[1:]]
@@ -21,7 +23,7 @@ class AS3008:
                 values = [value.strip() for value in line.split(",")]
                 self.table53[values[0]] = dict(zip(headers, values[1:]))
     def loadTable52(self):
-        file_path = 'AS3008-Table52.csv'#xlsx'
+        file_path = 'AS3K8-Table52.csv'#xlsx'
         self.table52 = {}
         with open(file_path) as f:
             headers = [header.strip() for header in next(f).split(",")[1:]]
@@ -127,10 +129,10 @@ import convertWire as convert
 from scipy import interpolate
 class Cable:
     def __init__(self, application):
-        self.loadAS3008()
+        self.loadAS3K8()
         self.setApplication(application)
-    def loadAS3008(self):
-        self.as3008 = AS3008()
+    def loadAS3K8(self):
+        self.as3K8 = AS3K8()
     def setApplication(self, application):
         if application=='flexable lead':
             self.application = application
@@ -153,16 +155,16 @@ class Cable:
         elif self.application=='fixed':
             self.table = tableNumber
     def setK(self):
-        table52 = self.as3008.getTable(52)#openTable52()
+        table52 = self.as3K8.getTable(52)#openTable52()
         self.setMaxConductorTemp()
         self.K = table52[str(self.getMaxConductorTemp())][str(self.getMaxCableTemp())]
     def setInsulation(self,insulation):
         self.insulation = insulation
         self.setMaxCableTemp()
     def setMaxConductorTemp(self):
-        self.maxConductorTemp = self.as3008.getTable(self.table)['Max Conductor Temp C']
+        self.maxConductorTemp = self.as3K8.getTable(self.table)['Max Conductor Temp C']
     def setMaxCableTemp(self):
-        table53 = self.as3008.getTable(53)#openTable53()
+        table53 = self.as3K8.getTable(53)#openTable53()
         if self.getCSA()<=300:
             self.maxCableTemp = table53[self.insulation]['<=300']
         else:
@@ -191,13 +193,13 @@ class Cable:
         i=0
         self.x=[]
         self.y=[]
-        for value in self.as3008.getTable(10):
+        for value in self.as3K8.getTable(10):
             if isinstance(value,str)!=1:
                 self.x.append(value)
-                self.y.append(self.as3008.getTable(10)[value])
+                self.y.append(self.as3K8.getTable(10)[value])
         f = interpolate.interp1d(self.x, self.y)
         ampacity = f(self.getCSA())
-        return ampacity #self.as3008.getTable(self.table)[self.getCSA()]
+        return ampacity #self.as3K8.getTable(self.table)[self.getCSA()]
     def plotFaultCurve(self):
         import matplotlib.pyplot as plt
         import numpy as np
@@ -250,7 +252,7 @@ class Cable:
 # In[24]:
 
 
-# cable3.as3008.table17['C03']
+# cable3.as3K8.table17['C03']
 
 
 # In[ ]:
